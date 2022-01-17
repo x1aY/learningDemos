@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <properties resource="config.properties"/>
+
+    <settings>
+<!--        <setting name="logImpl" value="SLF4J"/>-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+    
+    <typeAliases>
+        <package name="cn.hhu.cn.hhu.xy.Bean"/>
+    </typeAliases>
+
+    <!--TODO 不能用classpath   resource="classpath:config.properties"-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${MybatisDriver}"/>
+                <!--      mysql时区有误时：修改  serverTimezone=GMT%2B8-->
+                <property name="url" value="${MybatisUrl}"/>
+                <property name="username" value="${MybatisUserName}"/>
+                <property name="password" value="${MybatisPassword}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+    <!--接口和mapper必须同名, 并且在同一包下-->
+        <package name="cn.hhu.cn.hhu.xy.Dao"/>
+    </mappers>
+
+
+
+</configuration>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.hhu.cn.hhu.xy.Dao.User.UserDao">
+    <cache/>
+
+    <select id="getUserList" resultType="user">
+            SELECT * FROM user;
+    </select>
+
+    <select id="getTchByID" resultType="tch">
+            SELECT * FROM tch where tchID = #{tchID};
+    </select>
+    <resultMap id="stuTch" type="stu">
+        <association column="tchID" property="tch" javaType="tch" select="getTchByID"/>
+    </resultMap>
+    <select id="getStuList" resultMap="stuTch">
+            SELECT * FROM stu;
+    </select>
+
+
+    <select id="getStuByTchID" resultType="Stu">
+        SELECT * FROM stu where tchID = #{tchID};
+    </select>
+    <resultMap id="tchStu" type="Tch">
+<!--        tchID被用两次，需要再次申明-->
+        <result column="tchID" property="tchID"/>
+        <collection column="tchID" property="students" ofType="Stu"
+                    select="getStuByTchID"/>
+    </resultMap>
+    <select id="getTchDtlByID" resultMap="tchStu">
+            SELECT * FROM tch where tchID = #{tchID};
+    </select>
+
+</mapper>

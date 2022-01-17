@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    include: dev,datasource
+
+logging:
+  config: classpath:config/log4j2-spring.xml
